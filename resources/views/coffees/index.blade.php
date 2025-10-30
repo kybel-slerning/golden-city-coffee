@@ -17,13 +17,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($coffees as $coffee)
-                <tr>
-                    <td>{{ $coffee->name }}</td>
-                    <td>Rp {{ number_format($coffee->price) }}</td>
-                    <td>{{ $coffee->description }}</td>
-                </tr>
-                @endforeach
+               @foreach($coffees as $coffee)
+<tr>
+    <td>{{ $coffee->name }}</td>
+    <td>Rp {{ number_format($coffee->price) }}</td>
+    <td>{{ $coffee->description }}</td>
+    <td>
+        <a href="{{ route('coffees.edit', $coffee) }}" class="btn btn-sm btn-warning">Edit</a>
+        <form action="{{ route('coffees.destroy', $coffee) }}" method="POST" style="display:inline">
+            @csrf @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
+        </form>
+    </td>
+</tr>
+@endforeach
             </tbody>
         </table>
     </div>

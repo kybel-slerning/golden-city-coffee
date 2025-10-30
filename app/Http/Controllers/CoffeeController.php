@@ -19,18 +19,23 @@ class CoffeeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+   public function create()
+{
+    return view('coffees.create');
+}
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|integer',
+        'description' => 'nullable|string'
+    ]);
+
+    Coffee::create($request->all());
+
+    return redirect()->route('coffees.index')->with('success', 'Kopi berhasil ditambah!');
+}
 
     /**
      * Display the specified resource.
@@ -40,27 +45,25 @@ class CoffeeController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Coffee $coffee)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Coffee $coffee)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Coffee $coffee)
-    {
-        //
-    }
+  public function edit(Coffee $coffee)
+{
+    return view('coffees.edit', compact('coffee'));
 }
+
+public function update(Request $request, Coffee $coffee)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|integer',
+    ]);
+
+    $coffee->update($request->all());
+
+    return redirect()->route('coffees.index')->with('success', 'Kopi berhasil diupdate!');
+}
+
+public function destroy(Coffee $coffee)
+{
+    $coffee->delete();
+    return redirect()->route('coffees.index')->with('success', 'Kopi dihapus!');
+}}
