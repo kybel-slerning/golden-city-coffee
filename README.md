@@ -16,7 +16,7 @@
 ## Abyss Layer 1: Menu Kopi
 
 - [x] Lihat daftar kopi  
-- [ ] Tambah, edit, hapus kopi  
+- [x] Tambah, edit, hapus kopi  
 - [ ] Sistem order & laporan harian  
 
 ---
